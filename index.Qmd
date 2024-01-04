@@ -1,0 +1,30 @@
+---
+execute: 
+  echo: false
+  warning: false
+  error: false
+  results: hold
+---
+
+# Intro {.unnumbered}
+
+## About {.unnumbered}
+
+This is my professional diary tracking work completed with the Aleza Lake Research Forest. This has been authored using R, and [Quatro](https://quarto.org). Additionally, this document system allows me to track various projects including time and cost tracking.
+
+## Projects List {#ProjectsList .unnumbered}
+
+Current priority items
+
+
+
+## Project Tracking Mindmaps {.unnumbered}
+
+-   **Project Management** is a global overview of all projects on-going (including multi-year projects).\
+    `workspace/mindmaps/ALRF Project Management CC.mm`
+-   **Research Projects** is a listing of ALRF associated research projects.\
+    `workspace/mindmaps/Research Projects.mm`
+-   Additional mindmaps are stored by year in\
+    `workspace/mindmaps/[year]`
+
+

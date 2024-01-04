@@ -1,0 +1,32 @@
+<!-- NEW DAY ESSENTIALS ---------------------------------------->
+
+## July 17 -- Monday
+
+```{r}
+##NEW DAY ----------------------------------------------------
+# items for time tracking
+Date <- "2023-07-17" ## Type in this format!
+HoursWorked  <-  8.0
+BankedTime   <-  0.0
+Personal_Kms <-  0.0
+Charge_KMs   <-  0.0
+Sick <- 0
+
+myTime <- add_row(myTime, Date = Date, HoursWorked = HoursWorked, 
+                  BankedTime = BankedTime, PersonalKMs = Personal_Kms, 
+                  ChargeKMs = Charge_KMs, 
+                  Sick = Sick)
+
+```
+
+[Time worked: `r HoursWorked`; Personal use of ALRF vehicle: `r Personal_Kms`kms.]{.daysummary}
+
+::: daynotes
+-   where?
+:::
+
+```{r}
+# Consulting <- add_consulting(Date, "PEM", "Paper", 6, "RPF", 0, "results section")
+```
+
+<!-- END Day Essentials ---------------------------------------->

@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+.daynotes {
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  border-radius:5px; 
+  padding: 5px;
+  font-size: 100%;
+}
+
+.daysummary {
+  font-size: 80%;
+  font-style: italic;
+}
+
+
+.red{
+  color: red;
+}

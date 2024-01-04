@@ -21,6 +21,7 @@
 # RStudio files
 .Rproj.user/
 
+
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
@@ -47,3 +48,15 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+/.quarto/
+
+
+# Exported data 
+
+dataexport/
+
+# Built book
+
+_book/
+_freeze/

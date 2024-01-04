@@ -1,0 +1,45 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Activity Log – 2024"
+  author: "Colin Chisholm"
+  date: today
+  date-format: iso
+  downloads: pdf
+  sidebar:
+    style: "docked"
+    search: true
+  page-navigation: true
+  reader-mode: true
+  chapters:
+    - index.qmd
+    - 01_Jan.Qmd
+    - references.qmd
+  appendices: 
+    - 80_Appendix.Qmd
+
+
+number-sections: false
+
+freeze: auto
+
+
+
+bibliography: references.bib
+
+format:
+  html:
+    published-title: "Last Updated"
+    theme: 
+      - spacelab
+      - custom.css
+    code-fold: false
+    fontsize: 1.0em  
+  pdf:
+    documentclass: scrreprt
+    keep-tex: true
+
+editor: source
+

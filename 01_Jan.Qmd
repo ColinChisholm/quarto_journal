@@ -1,0 +1,156 @@
+---
+execute: 
+  echo: false
+  warning: false
+  error: false
+  eval: true
+  results: hold
+---
+
+# Jan
+
+```{r}
+## Set Month parameters 
+# monthName <- character()
+mName <- "Jan"
+filePrefix <- "2401"
+
+```
+
+```{r}
+#| results: hide
+## Set up:
+### libraries
+libs <- c("tidyverse", "knitr", "kableExtra")
+lapply(libs, library, character.only = TRUE)  # load the required packages
+
+
+### Functions and time stamps
+add_consulting <- function(Date, Client, Project, Hours, Rate, Kms, Comment){
+  add_row(Consulting, Date = Date, Client = Client, Project = Project,
+          Hours = Hours, Rate = Rate, Kms = Kms, Comment = Comment)
+}
+
+### Data set up
+#### Personal time tracking
+myTime <- tibble(Date = character(), HoursWorked = numeric(), 
+                 PersonalKMs = numeric(), ChargeKMs = numeric(), 
+                 BankedTime = numeric(),
+                 Sick = numeric())
+
+#### Consulting table
+Consulting <- tibble(Date = character(), Client = character(), Project = character(), Hours = numeric(), Rate = factor(), Kms = numeric(), Comment = character())
+levels(Consulting$Rate) <- c("RPF", "Student", "Other")
+```
+
+```{r}
+#Carry over time from previous
+CarryOver <- 0
+```
+
+Note that `r CarryOver` hours of banked time have been carried over from last month.
+
+::: callout-important
+## Tasks
+:::
+
+<!-- NEW DAY ESSENTIALS ---------------------------------------->
+
+## Jan 4
+
+```{r}
+##NEW DAY ----------------------------------------------------
+# items for time tracking
+Date <- "2024-01-04" ## Type in this format!
+HoursWorked  <-  8.0
+BankedTime   <-  0.0
+Personal_Kms <-  0.0
+Charge_KMs   <-  0.0
+Sick <- 0
+
+myTime <- add_row(myTime, Date = Date, HoursWorked = HoursWorked, 
+                  BankedTime = BankedTime, PersonalKMs = Personal_Kms, 
+                  ChargeKMs = Charge_KMs, 
+                  Sick = Sick)
+
+```
+
+[Time worked: `r HoursWorked`; Personal use of ALRF vehicle: `r Personal_Kms`kms.]{.daysummary}
+
+::: daynotes
+
+
+
+:::
+
+```{r}
+# Consulting <- add_consulting(Date, "PEM", "meeting", 2, "RPF", 0, "meeting -- Pam and Gen provide an update.")
+```
+
+<!-- END Day Essentials ---------------------------------------->
+
+{{< pagebreak >}}
+
+## Month Summary -- `r mName`
+
+*Banked time includes a carry over of `r CarryOver` hours from the previous month*
+
+Raw data has been exported to:
+
+```{r, echo=FALSE, results='show'}
+dataexport <- "./dataexport"
+write_csv(myTime, paste0(dataexport, "/myTime/",filePrefix, "_Mytime.csv"))
+write_csv(Consulting, paste0(dataexport, "/Consulting/", filePrefix, "_Consulting.csv"))
+
+files <- list.files(path = dataexport, full.names = TRUE, recursive = TRUE )
+files
+```
+
+### My Time and ALRF vehicle use tracking
+
+```{r}
+# myTime <- myTime %>% mutate(BankedTime = HoursWorked - 8)
+myTimeSummary <- myTime %>% summarise(`Days Worked` = nrow(.),
+                                      `Total Hours` = sum(HoursWorked),
+                                      `Banked Time` = sum(BankedTime),
+                                      `Vehicle Use` = sum(PersonalKMs),
+                                      `Charge Kms`   = sum(ChargeKMs, na.rm = TRUE),
+                                      `Sick Time` = sum(Sick)) %>%
+  mutate(`Banked Time` = `Banked Time` + CarryOver)
+
+kable(myTimeSummary, caption = "My Time and ALRF vehicle use tracking",
+      format = "markdown")
+```
+
+### Consulting time
+
+```{r}
+kable(Consulting %>% group_by(Client, Project, Rate) %>%
+        summarise(Hours = sum(Hours),
+                  Kms   = sum(Kms)),
+      format = "markdown",
+      caption = "Consulting Time")
+```
+
+\newpage
+
+### Consulting time (detailed)
+
+```{r}
+kable(Consulting, caption = "Consulting time (detailed)", format = "markdown")
+  # if (knitr::is_latex_output() == TRUE) {
+  #   kable(Consulting, caption = "Consulting time (detailed)",
+  #         format = "latex") %>%
+  #         kableExtra::kable_styling(latex_options = c("striped"),
+  #                 full_width = F) %>%
+  #     kableExtra::column_spec(7, width = "30cm") %>% 
+  #     landscape()
+  # } else {
+  #   kable(Consulting, caption = "Consulting time (detailed)",
+  #         format = "html") %>%
+  #         kableExtra::kable_styling(bootstrap_options = "striped",
+  #                 full_width = F) %>%
+  #     kableExtra::column_spec(7, width = "30em")
+  # }
+  
+```
